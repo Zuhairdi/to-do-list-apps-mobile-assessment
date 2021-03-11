@@ -1,6 +1,8 @@
 # todo-list app
 
 Mobile App Developer Assessment 
+
+
 ![alt text](https://github.com/Zuhairdi/to-do-list-apps-mobile-assessment/blob/master/android/app/src/main/res/drawable-v21/splashlogo.png?raw=true)
 
 
