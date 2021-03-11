@@ -82,7 +82,7 @@ class _MyHomePageState extends State<MyHomePage> {
           controller: (ctrl) => _controller = ctrl,
           manualTrigger: true,
 
-          //--floating action button was separated into a new file (fab.dart)--
+          //--floating action button --
           child: FloatingActionButton(
             backgroundColor: Color(0xFFee5b25),
             onPressed: () {
