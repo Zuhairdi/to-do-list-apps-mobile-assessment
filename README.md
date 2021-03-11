@@ -3,7 +3,8 @@
 Mobile App Developer Assessment 
 
 
-![alt text](https://github.com/Zuhairdi/to-do-list-apps-mobile-assessment/blob/master/android/app/src/main/res/drawable-v21/splashlogo.png?raw=true)
+![alt text](https://raw.githubusercontent.com/Zuhairdi/to-do-list-apps-mobile-assessment/master/Screenshot_1615446027.png)
+![alt text](https://raw.githubusercontent.com/Zuhairdi/to-do-list-apps-mobile-assessment/master/Screenshot_1615446039.png)
 
 
 ## Summary
