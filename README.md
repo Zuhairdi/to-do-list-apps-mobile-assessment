@@ -38,7 +38,9 @@ been completed. This mean, any task that approacing the due date will be placed 
 There are several addition can be added to this app for better functionality such as
 
 //TODO add notification and alarm for the incomplete task that approaching the due date.
+
 //TODO add objective section for each task and point based system for each completed task.
+
 //TODO integrate the app to the cloud such as Firebase etc.
 
 Unit test was not performed in this app, so does CI/CD.
