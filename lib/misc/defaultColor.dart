@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 
 defaultColor() => MaterialColor(0xFFffbe24, customColor);
-fabColor() => Color(0xFFee5b25);
 
 Map<int, Color> customColor = {
   50: Color.fromRGBO(255, 190, 36, .1),

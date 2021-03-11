@@ -5,8 +5,6 @@ import 'package:to_do_list_app/misc/BigDB.dart';
 import 'package:to_do_list_app/misc/ToDoList.dart';
 import 'package:to_do_list_app/misc/Toast.dart';
 
-import 'file:///C:/Users/MyComputer/AndroidStudioProjects/to_do_list_app/lib/misc/fab.dart';
-
 class MyHomePage extends StatefulWidget {
   @override
   _MyHomePageState createState() => _MyHomePageState();
@@ -85,22 +83,30 @@ class _MyHomePageState extends State<MyHomePage> {
           manualTrigger: true,
 
           //--floating action button was separated into a new file (fab.dart)--
-          child: fab(
+          child: FloatingActionButton(
+            backgroundColor: Color(0xFFee5b25),
             onPressed: () {
               _controller.reverse();
-              Future.delayed(Duration(milliseconds: 500)).then((value) {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                    builder: (context) => SecondPage(
-                      refresh: () {
-                        _refresh();
-                      },
+              Future.delayed(Duration(milliseconds: 500)).then(
+                (value) {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => SecondPage(
+                        refresh: () {
+                          _refresh();
+                        },
+                      ),
                     ),
-                  ),
-                );
-              });
+                  );
+                },
+              );
             },
+            child: Icon(
+              Icons.add,
+              size: 30.0,
+              color: Colors.white,
+            ),
           ),
         ),
         floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
