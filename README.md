@@ -1,8 +1,8 @@
-# to_do_list_app
+# todo-list app
 
 Mobile App Developer Assessment 
 
-## Getting Started
+
 ## Summary
 
 This is an assessment assigned by Etiqa IT for a flutter mobile developer position.
