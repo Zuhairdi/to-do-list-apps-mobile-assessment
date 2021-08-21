@@ -27,13 +27,11 @@ class BigDB {
   }
 
   //use this function to add entries to the database
-  add({String title, int startDate, int endDate, bool isComplete}) async {
-    int _isComplete = 0;
-    if (isComplete) _isComplete = 1;
+  add({DataModel dataModel}) async {
     try {
       await database.transaction((txn) async {
         await txn.rawInsert(
-            'INSERT INTO $databaseName (title, start, end, isComplete) VALUES ("$title", $startDate, $endDate, $_isComplete)');
+            'INSERT INTO $databaseName (title, start, end, isComplete) VALUES ("${dataModel.title}", ${dataModel.startDate}, ${dataModel.endDate}, ${dataModel.isComplete ? 1 : 0})');
       });
     } on Exception catch (e) {
       print(e.toString());
@@ -41,18 +39,11 @@ class BigDB {
   }
 
   //use this function to update existing entries
-  update(
-      {int ID,
-      String title,
-      int startDate,
-      int endDate,
-      bool isComplete}) async {
-    int _isComplete = 0;
-    if (isComplete) _isComplete = 1;
+  update({DataModel dataModel}) async {
     try {
       await database.transaction((txn) async {
         await txn.rawInsert(
-            'UPDATE $databaseName SET title = "$title", start = $startDate, end = $endDate, isComplete = $_isComplete WHERE id = $ID');
+            'UPDATE $databaseName SET title = "${dataModel.title}", start = ${dataModel.startDate}, end = ${dataModel.endDate}, isComplete = ${dataModel.isComplete ? 1 : 0} WHERE id = ${dataModel.id}');
       });
     } on Exception catch (e) {
       print(e.toString());
@@ -60,29 +51,27 @@ class BigDB {
   }
 
   //call this function to get the list of value
-  Future<List<BigDBHandler>> read() async {
-    List<BigDBHandler> mList = List<BigDBHandler>.empty(growable: true);
+  Future<List<DataModel>> read() async {
+    List<DataModel> mList = [];
     try {
-      await database
-          .rawQuery('SELECT * FROM $databaseName ORDER BY isComplete, end ASC')
-          .then((value) {
-        for (var data in value) {
-          BigDBHandler handler = BigDBHandler();
-          handler.get(data);
-          mList.add(handler);
-        }
-      });
+      var value = await database
+          .rawQuery('SELECT * FROM $databaseName ORDER BY isComplete, end ASC');
+      for (var data in value) {
+        DataModel handler = DataModel();
+        handler.get(data);
+        mList.add(handler);
+      }
     } on Exception catch (e) {
       print(e.toString());
     }
     return mList;
   }
 
-  Future<BigDBHandler> readSingle(int ID) async {
-    BigDBHandler handler = BigDBHandler();
+  Future<DataModel> readSingle(int id) async {
+    DataModel handler = DataModel();
     try {
       await database
-          .rawQuery('SELECT * FROM $databaseName WHERE id = $ID')
+          .rawQuery('SELECT * FROM $databaseName WHERE id = $id')
           .then((value) {
         handler.get(value.first);
       });
@@ -93,13 +82,14 @@ class BigDB {
   }
 
   //delete the entries in the database
-  Future<int> delete(int ID) async {
+  Future<int> delete(int id) async {
     try {
       return await database
-          .rawDelete('DELETE FROM $databaseName WHERE id = $ID');
+          .rawDelete('DELETE FROM $databaseName WHERE id = $id');
     } on Exception catch (e) {
       print(e.toString());
     }
+    return -1;
   }
 
   //drop table - fully delete the database *carefull
@@ -115,16 +105,24 @@ class BigDB {
   closeDatabase() async => await database.close();
 }
 
-class BigDBHandler {
-  int ID;
+class DataModel {
+  int id;
   String title;
   int startDate;
   int endDate;
   bool isComplete;
 
+  DataModel({
+    this.id,
+    this.title,
+    this.startDate,
+    this.endDate,
+    this.isComplete,
+  });
+
   get(data) {
     int temp = data['isComplete'];
-    ID = data['id'];
+    id = data['id'];
     title = data['title'];
     startDate = data['start'];
     endDate = data['end'];

@@ -15,6 +15,7 @@ class TimeHandler {
     if (start.isAfter(now)) {
       Duration different = start.difference(now);
       int days = different.inDays;
+      if (days == 0) return 'Ongoing';
       return '$days days before starting date';
     }
     Duration different = end.difference(now);

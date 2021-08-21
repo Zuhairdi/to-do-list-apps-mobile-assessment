@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:to_do_list_app/SecondPage.dart';
 import 'package:to_do_list_app/misc/BigDB.dart';
 import 'package:to_do_list_app/misc/ToDoList.dart';
-import 'package:to_do_list_app/misc/Toast.dart';
 
 class MyHomePage extends StatefulWidget {
   @override
@@ -12,7 +11,7 @@ class MyHomePage extends StatefulWidget {
 
 class _MyHomePageState extends State<MyHomePage> {
   BigDB bigDB = BigDB();
-  List<BigDBHandler> mList = List<BigDBHandler>.empty(growable: true);
+  List<DataModel> mList = List<DataModel>.empty(growable: true);
   AnimationController _controller;
   //-----------------------------------------------------------------------------------
   //function to call reload action of the list
@@ -51,29 +50,7 @@ class _MyHomePageState extends State<MyHomePage> {
         ),
 
         //----------------------- middle -------------------------------------------------
-        body: ToDoList(
-          //This is called from ToDoList.dart file
-          controller: _controller,
-          dataList: mList,
-          // refresh list will reload the list and fetch new data from the database
-          refreshList: () {
-            _refresh();
-          },
-          //update entries
-          updateDatabase: (data, state) {
-            bigDB.update(
-              ID: data.ID,
-              title: data.title,
-              startDate: data.startDate,
-              endDate: data.endDate,
-              isComplete: state,
-            );
-          },
-          //remove entries
-          deleteFromDatabase: (id) => bigDB.delete(id).then(
-                (value) => Toast('Task removed'),
-              ),
-        ),
+        body: ToDoList(),
 
         //----------------------- bottom -------------------------------------------------
         floatingActionButton: BounceInUp(
@@ -82,7 +59,7 @@ class _MyHomePageState extends State<MyHomePage> {
           controller: (ctrl) => _controller = ctrl,
           manualTrigger: true,
 
-          //--floating action button --
+          //--floating action button was separated into a new file (fab.dart)--
           child: FloatingActionButton(
             backgroundColor: Color(0xFFee5b25),
             onPressed: () {
@@ -92,11 +69,7 @@ class _MyHomePageState extends State<MyHomePage> {
                   Navigator.push(
                     context,
                     MaterialPageRoute(
-                      builder: (context) => SecondPage(
-                        refresh: () {
-                          _refresh();
-                        },
-                      ),
+                      builder: (context) => SecondPage(),
                     ),
                   );
                 },
