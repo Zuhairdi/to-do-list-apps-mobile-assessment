@@ -11,8 +11,6 @@ Mobile App Developer Assessment
 
 ## Summary
 
-This is an assessment assigned by Etiqa IT for a flutter mobile developer position.
-
 The task was given on 10 March 2021 and the due date is 12 March 2021.
 Initially, a UI was given with little description on how the app should behave.
 
